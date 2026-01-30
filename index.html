@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zufälliger Namensgenerator</title>
+    <meta name="description"
+        content="Wählen Sie zufällige Namen aus Ihrer CSV-Liste und verfolgen Sie verwendete Namen">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Inter:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="background-gradient"></div>
+
+    <div class="container">
+        <header class="header">
+            <h1 class="title">
+                <span class="title-icon">🎲</span>
+                Bob
+            </h1>
+        </header>
+
+        <div class="card picker-card">
+            <div class="card-body">
+                <div class="result-display" id="resultDisplay">
+                    <div class="result-placeholder">Klicken Sie auf den Button unten</div>
+                </div>
+                <button class="btn-primary" id="pickButton" disabled>
+                    <span class="btn-icon">🎯</span>
+                    Zufälligen Namen wählen
+                </button>
+                <div class="decision-buttons" id="decisionButtons" style="display: none;">
+                    <button class="btn-confirm" id="confirmButton">
+                        <span class="btn-icon">✓</span>
+                        Namen verwenden
+                    </button>
+                    <button class="btn-reject" id="rejectButton">
+                        <span class="btn-icon">↻</span>
+                        Neuen Namen vorschlagen
+                    </button>
+                    <button class="btn-delete" id="deleteButton" title="Namen dauerhaft löschen">
+                        <span class="btn-icon">🗑️</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card list-card">
+            <div class="card-header">
+                <h2>📋 Namensliste</h2>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">Alle</button>
+                    <button class="filter-btn" data-filter="available">Verfügbar</button>
+                    <button class="filter-btn" data-filter="used">Verwendet</button>
+                </div>
+            </div>
+            <div class="search-container">
+                <input type="text" id="searchInput" class="search-input" placeholder="🔍 Namen suchen...">
+            </div>
+            <div class="card-body">
+                <div class="names-list" id="namesList">
+                    <div class="empty-state">
+                        <div class="empty-icon">📝</div>
+                        <p>Keine Namen geladen</p>
+                        <p class="empty-hint">Importieren Sie eine CSV-Datei, um zu beginnen</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card add-name-card">
+            <div class="card-header">
+                <h2>➕ Einzelnen Namen hinzufügen</h2>
+            </div>
+            <div class="card-body">
+                <div class="add-name-row">
+                    <input type="text" id="newNameInput" class="text-input" placeholder="Name eingeben...">
+                    <button class="btn-primary" id="addNameBtn">
+                        <span class="btn-icon">＋</span>
+                        Hinzufügen
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card upload-card">
+            <div class="card-header">
+                <h2>📁 CSV-Datei importieren</h2>
+            </div>
+            <div class="card-body">
+                <div class="upload-area" id="uploadArea">
+                    <input type="file" id="csvInput" accept=".csv" hidden>
+                    <label for="csvInput" class="upload-label">
+                        <div class="upload-icon">📤</div>
+                        <div class="upload-text">
+                            <strong>Klicken Sie hier</strong> oder ziehen Sie eine CSV-Datei
+                        </div>
+                        <div class="upload-hint">Format: Ein Name pro Zeile</div>
+                    </label>
+                </div>
+                <div class="stats-row">
+                    <div class="stat-item">
+                        <span class="stat-label">Gesamt:</span>
+                        <span class="stat-value" id="totalNames">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Verfügbar:</span>
+                        <span class="stat-value available" id="availableNames">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Verwendet:</span>
+                        <span class="stat-value used" id="usedNames">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
