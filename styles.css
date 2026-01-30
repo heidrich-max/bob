@@ -14,10 +14,10 @@
     --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
     --backdrop-blur: blur(10px);
 
-    /* Background Colors for Blobs */
-    --blob-color-1: #4facfe;
-    --blob-color-2: #00f2fe;
-    --blob-color-3: #ff0080;
+    /* Background Colors for Blobs (Experiment) */
+    --blob-color-1: #42f54b;
+    --blob-color-2: #f5d742;
+    --blob-color-3: #9b42f5;
 
     /* Spacing */
     --spacing-xs: 0.5rem;
