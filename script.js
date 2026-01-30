@@ -29,6 +29,10 @@ const deleteButton = document.getElementById('deleteButton');
 const newNameInput = document.getElementById('newNameInput');
 const addNameBtn = document.getElementById('addNameBtn');
 
+const menuBtn = document.getElementById('menuBtn');
+const closeMenuBtn = document.getElementById('closeMenuBtn');
+const glassMenu = document.getElementById('glassMenu');
+
 // ===== LocalStorage Keys =====
 const STORAGE_KEYS = {
     NAMES: 'namePicker_allNames',
@@ -92,6 +96,18 @@ function attachEventListeners() {
         searchInput.addEventListener('input', (e) => {
             currentSearchTerm = e.target.value.trim().toLowerCase();
             renderNamesList();
+        });
+    }
+    // Menu Toggle
+    if (menuBtn && glassMenu) {
+        menuBtn.addEventListener('click', () => {
+            glassMenu.classList.add('active');
+        });
+    }
+
+    if (closeMenuBtn && glassMenu) {
+        closeMenuBtn.addEventListener('click', () => {
+            glassMenu.classList.remove('active');
         });
     }
 }

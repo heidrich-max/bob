@@ -27,6 +27,9 @@
                 <span class="title-icon">🎲</span>
                 Bob
             </h1>
+            <button class="menu-btn" id="menuBtn" aria-label="Menu">
+                <span class="menu-icon">☰</span>
+            </button>
         </header>
 
         <div class="card picker-card">
@@ -54,79 +57,87 @@
             </div>
         </div>
 
-        <div class="card list-card">
-            <div class="card-header">
-                <h2>📋 Namensliste</h2>
-                <div class="filter-buttons">
-                    <button class="filter-btn active" data-filter="all">Alle</button>
-                    <button class="filter-btn" data-filter="available">Verfügbar</button>
-                    <button class="filter-btn" data-filter="used">Verwendet</button>
-                </div>
+        <!-- Glass Overlay Menu -->
+        <div class="glass-menu" id="glassMenu">
+            <div class="menu-header">
+                <h2>Menü</h2>
+                <button class="close-menu-btn" id="closeMenuBtn" aria-label="Close Menu">✕</button>
             </div>
-            <div class="search-container">
-                <input type="text" id="searchInput" class="search-input" placeholder="🔍 Namen suchen...">
-            </div>
-            <div class="card-body">
-                <div class="names-list" id="namesList">
-                    <div class="empty-state">
-                        <div class="empty-icon">📝</div>
-                        <p>Keine Namen geladen</p>
-                        <p class="empty-hint">Importieren Sie eine CSV-Datei, um zu beginnen</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="card add-name-card">
-            <div class="card-header">
-                <h2>➕ Einzelnen Namen hinzufügen</h2>
-            </div>
-            <div class="card-body">
-                <div class="add-name-row">
-                    <input type="text" id="newNameInput" class="text-input" placeholder="Name eingeben...">
-                    <button class="btn-primary" id="addNameBtn">
-                        <span class="btn-icon">＋</span>
-                        Hinzufügen
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <div class="card upload-card">
-            <div class="card-header">
-                <h2>📁 CSV-Datei importieren</h2>
-            </div>
-            <div class="card-body">
-                <div class="upload-area" id="uploadArea">
-                    <input type="file" id="csvInput" accept=".csv" hidden>
-                    <label for="csvInput" class="upload-label">
-                        <div class="upload-icon">📤</div>
-                        <div class="upload-text">
-                            <strong>Klicken Sie hier</strong> oder ziehen Sie eine CSV-Datei
+            <div class="menu-content">
+                <div class="card list-card">
+                    <div class="card-header">
+                        <h2>📋 Namensliste</h2>
+                        <div class="filter-buttons">
+                            <button class="filter-btn active" data-filter="all">Alle</button>
+                            <button class="filter-btn" data-filter="available">Verfügbar</button>
+                            <button class="filter-btn" data-filter="used">Verwendet</button>
                         </div>
-                        <div class="upload-hint">Format: Ein Name pro Zeile</div>
-                    </label>
+                    </div>
+                    <div class="search-container">
+                        <input type="text" id="searchInput" class="search-input" placeholder="🔍 Namen suchen...">
+                    </div>
+                    <div class="card-body">
+                        <div class="names-list" id="namesList">
+                            <div class="empty-state">
+                                <div class="empty-icon">📝</div>
+                                <p>Keine Namen geladen</p>
+                                <p class="empty-hint">Importieren Sie eine CSV-Datei, um zu beginnen</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="stats-row">
-                    <div class="stat-item">
-                        <span class="stat-label">Gesamt:</span>
-                        <span class="stat-value" id="totalNames">0</span>
+
+
+                <div class="card add-name-card">
+                    <div class="card-header">
+                        <h2>➕ Einzelnen Namen hinzufügen</h2>
                     </div>
-                    <div class="stat-item">
-                        <span class="stat-label">Verfügbar:</span>
-                        <span class="stat-value available" id="availableNames">0</span>
+                    <div class="card-body">
+                        <div class="add-name-row">
+                            <input type="text" id="newNameInput" class="text-input" placeholder="Name eingeben...">
+                            <button class="btn-primary" id="addNameBtn">
+                                <span class="btn-icon">＋</span>
+                                Hinzufügen
+                            </button>
+                        </div>
                     </div>
-                    <div class="stat-item">
-                        <span class="stat-label">Verwendet:</span>
-                        <span class="stat-value used" id="usedNames">0</span>
+                </div>
+
+                <div class="card upload-card">
+                    <div class="card-header">
+                        <h2>📁 CSV-Datei importieren</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="upload-area" id="uploadArea">
+                            <input type="file" id="csvInput" accept=".csv" hidden>
+                            <label for="csvInput" class="upload-label">
+                                <div class="upload-icon">📤</div>
+                                <div class="upload-text">
+                                    <strong>Klicken Sie hier</strong> oder ziehen Sie eine CSV-Datei
+                                </div>
+                                <div class="upload-hint">Format: Ein Name pro Zeile</div>
+                            </label>
+                        </div>
+                        <div class="stats-row">
+                            <div class="stat-item">
+                                <span class="stat-label">Gesamt:</span>
+                                <span class="stat-value" id="totalNames">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Verfügbar:</span>
+                                <span class="stat-value available" id="availableNames">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Verwendet:</span>
+                                <span class="stat-value used" id="usedNames">0</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <script src="script.js"></script>
+        <script src="script.js"></script>
 </body>
 
 </html>
