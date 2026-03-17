@@ -52,25 +52,20 @@ if (!$pdo) {
 try {
     $pdo->beginTransaction();
     
-    // 1. Clear table
-    echo "Leere Tabelle 'names'...\n";
-    $pdo->exec("TRUNCATE TABLE names");
-    
-    // 2. Insert names
-    echo "Importiere Namen...\n";
-    $stmt = $pdo->prepare("INSERT INTO names (name, is_used) VALUES (?, 1)");
+    // 1. Sync names (No TRUNCATE)
+    echo "Synchronisiere WooCommerce-Namen (markiere als 'verwendet')...\n";
+    $stmt = $pdo->prepare("INSERT INTO names (name, is_used) VALUES (?, 1) ON DUPLICATE KEY UPDATE is_used = 1");
     
     foreach ($names as $name) {
         try {
             $stmt->execute([$name]);
         } catch (PDOException $e) {
-            // Skip duplicates if any unique constraint issues remain
-            echo "Überspringe Duplikat oder Fehler: $name\n";
+            echo "Fehler bei Name '$name': " . $e->getMessage() . "\n";
         }
     }
     
     $pdo->commit();
-    echo "Erfolgreich abgeschlossen! " . count($names) . " Namen wurden importiert.\n";
+    echo "Erfolgreich abgeschlossen! " . count($names) . " Namen wurden synchronisiert.\n";
     
 } catch (Exception $e) {
     $pdo->rollBack();
