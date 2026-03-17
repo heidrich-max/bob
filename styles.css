@@ -717,8 +717,15 @@ body {
         align-items: flex-start;
     }
 
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-sm);
+    }
+
     .filter-buttons {
-        width: 100%;
+        display: flex;
+        gap: var(--spacing-xs);
     }
 
     .filter-btn {

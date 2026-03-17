@@ -84,15 +84,28 @@ try {
 
             $addedCount = 0;
             $skippedCount = 0;
+            $defaultStatus = $input['is_used'] ?? 0; // Globaler Status für Liste oder 0
 
-            $stmt = $db->prepare("INSERT IGNORE INTO names (name, is_used) VALUES (?, 0)");
+            $stmt = $db->prepare("INSERT IGNORE INTO names (name, is_used) VALUES (:name, :is_used)");
 
-            foreach ($namesToAdd as $name) {
-                $name = trim($name);
+            foreach ($namesToAdd as $item) {
+                $name = "";
+                $is_used = $defaultStatus;
+
+                if (is_array($item)) {
+                    $name = trim($item['name'] ?? '');
+                    $is_used = $item['is_used'] ?? $defaultStatus;
+                } else {
+                    $name = trim($item);
+                }
+
                 if (empty($name))
                     continue;
 
-                $stmt->execute([$name]);
+                $stmt->execute([
+                    ':name' => $name,
+                    ':is_used' => $is_used ? 1 : 0
+                ]);
 
                 if ($stmt->rowCount() > 0) {
                     $addedCount++;

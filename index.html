@@ -61,12 +61,32 @@
                 <div class="card list-card">
                     <div class="card-header">
                         <h2>📋 Namensliste</h2>
-                        <div class="filter-buttons">
-                            <button class="filter-btn active" data-filter="all">Alle</button>
-                            <button class="filter-btn" data-filter="available">Verfügbar</button>
-                            <button class="filter-btn" data-filter="used">Verwendet</button>
+                        <div class="header-actions">
+                            <div class="filter-buttons">
+                                <button class="filter-btn active" data-filter="all">Alle</button>
+                                <button class="filter-btn" data-filter="available">Verfügbar</button>
+                                <button class="filter-btn" data-filter="used">Verwendet</button>
+                            </div>
+                            <button class="btn-add-toggle" id="toggleAddForm" title="Neuen Namen hinzufügen">
+                                <span class="btn-icon">＋</span>
+                            </button>
                         </div>
                     </div>
+
+                    <!-- Inline Add Form (Hidden by default) -->
+                    <div class="inline-add-container" id="inlineAddForm" style="display: none;">
+                        <div class="add-form-row">
+                            <input type="text" id="inlineNameInput" class="text-input" placeholder="Name eingeben...">
+                            <select id="inlineStatusSelect" class="status-select">
+                                <option value="available">Verfügbar</option>
+                                <option value="used">Verwendet</option>
+                            </select>
+                            <button class="btn-primary" id="inlineAddBtn">
+                                Hinzufügen
+                            </button>
+                        </div>
+                    </div>
+
                     <div class="search-container">
                         <input type="text" id="searchInput" class="search-input" placeholder="🔍 Namen suchen...">
                     </div>
@@ -81,23 +101,7 @@
                 </div>
 
                 <div class="admin-sidebar">
-                    <!-- Add Name Section -->
-                    <div class="card add-name-card">
-                        <div class="card-header">
-                            <h2>➕ Namen hinzufügen</h2>
-                        </div>
-                        <div class="card-body">
-                            <div class="add-name-row">
-                                <input type="text" id="newNameInput" class="text-input" placeholder="Name eingeben...">
-                                <button class="btn-primary" id="addNameBtn">
-                                    <span class="btn-icon">＋</span>
-                                    Hinzufügen
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- CSV Import Section -->
+                    <!-- CSV Import Section (Add Name Card was here) -->
                     <div class="card upload-card">
                         <div class="card-header">
                             <h2>📁 CSV-Import</h2>

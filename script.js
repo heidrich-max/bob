@@ -26,12 +26,13 @@ const decisionButtons = document.getElementById('decisionButtons');
 const confirmButton = document.getElementById('confirmButton');
 const rejectButton = document.getElementById('rejectButton');
 const deleteButton = document.getElementById('deleteButton');
-const newNameInput = document.getElementById('newNameInput');
-const addNameBtn = document.getElementById('addNameBtn');
 
-const menuBtn = document.getElementById('menuBtn');
-const closeMenuBtn = document.getElementById('closeMenuBtn');
-const glassMenu = document.getElementById('glassMenu');
+// Inline Add Form elements
+const toggleAddFormBtn = document.getElementById('toggleAddForm');
+const inlineAddForm = document.getElementById('inlineAddForm');
+const inlineNameInput = document.getElementById('inlineNameInput');
+const inlineStatusSelect = document.getElementById('inlineStatusSelect');
+const inlineAddBtn = document.getElementById('inlineAddBtn');
 
 // ===== LocalStorage Keys =====
 const STORAGE_KEYS = {
@@ -65,18 +66,29 @@ function attachEventListeners() {
     // Buttons
     pickButton.addEventListener('click', pickRandomName);
 
+    // Confirm / Reject
     confirmButton.addEventListener('click', confirmName);
     rejectButton.addEventListener('click', rejectName);
     if (deleteButton) {
         deleteButton.addEventListener('click', deleteSuggestedName);
     }
 
-    // Add Name Button
-    if (addNameBtn) {
-        addNameBtn.addEventListener('click', addSingleName);
+    // Toggle Add Form
+    if (toggleAddFormBtn && inlineAddForm) {
+        toggleAddFormBtn.addEventListener('click', () => {
+            const isHidden = inlineAddForm.style.display === 'none';
+            inlineAddForm.style.display = isHidden ? 'block' : 'none';
+            toggleAddFormBtn.classList.toggle('active', isHidden);
+            if (isHidden) inlineNameInput.focus();
+        });
     }
-    if (newNameInput) {
-        newNameInput.addEventListener('keypress', (e) => {
+
+    // Inline Add Actions
+    if (inlineAddBtn) {
+        inlineAddBtn.addEventListener('click', addSingleName);
+    }
+    if (inlineNameInput) {
+        inlineNameInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') addSingleName();
         });
     }
@@ -96,18 +108,6 @@ function attachEventListeners() {
         searchInput.addEventListener('input', (e) => {
             currentSearchTerm = e.target.value.trim().toLowerCase();
             renderNamesList();
-        });
-    }
-    // Menu Toggle
-    if (menuBtn && glassMenu) {
-        menuBtn.addEventListener('click', () => {
-            glassMenu.classList.add('active');
-        });
-    }
-
-    if (closeMenuBtn && glassMenu) {
-        closeMenuBtn.addEventListener('click', () => {
-            glassMenu.classList.remove('active');
         });
     }
 }
@@ -535,31 +535,52 @@ async function toggleStatus(name) {
 
 
 async function addSingleName() {
-    const name = newNameInput.value.trim();
+    const name = inlineNameInput.value.trim();
+    const isUsed = inlineStatusSelect.value === 'used';
+    
     if (!name) {
         showNotification('Bitte geben Sie einen Namen ein', 'warning');
         return;
     }
 
-    if (allNames.includes(name)) {
+    // Duplicate check
+    const exists = allNames.some(n => n.name.toLowerCase() === name.toLowerCase());
+    if (exists) {
         showNotification(`Der Name "${name}" existiert bereits`, 'warning');
         return;
     }
 
     if (USE_API) {
-        const result = await addNamesToAPI([name]);
-        if (result && result.added > 0) {
+        const response = await fetch(`${API_URL}?action=addNames`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                names: [name],
+                is_used: isUsed ? 1 : 0
+            })
+        });
+
+        const data = await response.json();
+        if (data.success && data.data.added > 0) {
             await loadNamesFromAPI();
-            newNameInput.value = '';
+            inlineNameInput.value = '';
+            
+            // Close form
+            inlineAddForm.style.display = 'none';
+            toggleAddFormBtn.classList.remove('active');
+            
             showNotification(`"${name}" erfolgreich hinzugefügt`);
-        } else if (result && result.skipped > 0) {
-            showNotification(`Der Name "${name}" existiert bereits`, 'warning');
+        } else {
+            showNotification(data.message || 'Fehler beim Hinzufügen', 'warning');
         }
     } else {
-        allNames.push(name);
+        // Fallback for LocalStorage
+        allNames.push({ name: name, is_used: isUsed ? 1 : 0 });
         saveToLocalStorage();
         updateUI();
-        newNameInput.value = '';
+        inlineNameInput.value = '';
+        inlineAddForm.style.display = 'none';
+        toggleAddFormBtn.classList.remove('active');
         showNotification(`"${name}" erfolgreich hinzugefügt`);
     }
 }
