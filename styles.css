@@ -995,3 +995,79 @@ body {
 .text-input::placeholder {
     color: var(--color-text-muted);
 }
+/* ===== Header Actions & Integrated Add ===== */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.btn-add-toggle {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    transition: all var(--transition-normal);
+}
+
+.btn-add-toggle:hover {
+    background: var(--color-success);
+    border-color: var(--color-success);
+    transform: scale(1.1);
+}
+
+.btn-add-toggle.active {
+    background: var(--color-accent);
+    transform: rotate(45deg);
+}
+
+/* ===== Inline Add Form ===== */
+.inline-add-container {
+    padding: var(--spacing-md);
+    background: rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    animation: slideDown 0.3s ease;
+}
+
+.add-form-row {
+    display: flex;
+    gap: var(--spacing-sm);
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.status-select {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-full);
+    color: white;
+    padding: 10px 15px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    cursor: pointer;
+    min-width: 130px;
+    transition: all var(--transition-normal);
+}
+
+.status-select:focus {
+    outline: none;
+    border-color: var(--color-text-main);
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.status-select option {
+    background: #1a1a2e;
+    color: white;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
