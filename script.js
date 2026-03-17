@@ -245,19 +245,29 @@ function displayResult(name) {
 async function confirmName() {
     if (!currentSelectedName) return;
 
+    const formattedName = `"${currentSelectedName}"`;
+
+    // Copy to clipboard
+    try {
+        await navigator.clipboard.writeText(formattedName);
+        console.log('Kopiert:', formattedName);
+    } catch (err) {
+        console.error('Fehler beim Kopieren:', err);
+    }
+
     if (USE_API) {
         // Use API to mark name as used
         const success = await markNameAsUsedAPI(currentSelectedName);
         if (success) {
             await loadNamesFromAPI();
-            showNotification(`"${currentSelectedName}" wurde verwendet!`);
+            showNotification(`${formattedName} wurde kopiert und verwendet!`);
             resetPickerUI();
         }
     } else {
         // LocalStorage fallback
         usedNames.add(currentSelectedName);
         saveToLocalStorage();
-        showNotification(`"${currentSelectedName}" wurde verwendet!`);
+        showNotification(`${formattedName} wurde kopiert und verwendet!`);
         resetPickerUI();
         updateUI();
     }
