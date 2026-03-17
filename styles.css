@@ -926,7 +926,7 @@ body {
 
 .admin-grid {
     display: grid;
-    grid-template-columns: 1fr 350px;
+    grid-template-columns: 1fr;
     gap: var(--spacing-lg);
     align-items: start;
     animation: fadeInUp 0.8s ease;
