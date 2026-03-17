@@ -448,7 +448,7 @@ function renderNamesList() {
                     <div class="name-actions">
                         <button class="btn-edit" onclick="startEdit('${name}')">Bearbeiten</button>
                         <button class="btn-toggle-status" onclick="toggleStatus('${name}')">
-                            ${isUsed ? 'Als verfügbar markieren' : 'Als verwendet markieren'}
+                            ${isUsed ? 'Freigeben' : 'Belegen'}
                         </button>
                     </div>
                 </div>

@@ -731,16 +731,17 @@ body {
 
 /* ===== Search Container ===== */
 .search-container {
-    padding: var(--spacing-md);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .search-input {
     width: 100%;
     font-family: 'Inter', sans-serif;
-    font-size: 1rem;
-    padding: var(--spacing-md);
-    background: rgba(255, 255, 255, 0.05);
+    font-size: 0.95rem;
+    padding: 10px 15px;
+    background: rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--radius-md);
     color: var(--color-text-main);
@@ -749,13 +750,9 @@ body {
 
 .search-input:focus {
     outline: none;
-    border-color: var(--color-text-main);
-    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.1);
-}
-
-.search-input::placeholder {
-    color: var(--color-text-muted);
+    border-color: rgba(255, 255, 255, 0.5);
+    background: rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
 }
 
 /* ===== Name Item Edit Mode ===== */
@@ -776,58 +773,65 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: var(--spacing-md);
-    margin-bottom: var(--spacing-xs);
-    background: var(--bg-primary);
-    border-radius: var(--radius-md);
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    padding: var(--spacing-sm) var(--spacing-md);
+    margin-bottom: 2px;
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     transition: all var(--transition-fast);
-    animation: fadeInLeft 0.3s ease;
+    gap: var(--spacing-md);
 }
 
 .name-item:hover {
-    background: #e9ecef;
-    border-color: var(--color-secondary);
-    transform: translateX(2px);
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .name-item.used {
-    opacity: 0.5;
-    background: #f1f3f5;
+    background: rgba(0, 0, 0, 0.2);
 }
 
 .name-item.used .name-text {
+    color: var(--color-text-muted);
     text-decoration: line-through;
+    font-weight: 400;
 }
 
 .name-text {
     font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--color-text-main);
 }
 
 .name-badge {
-    font-size: 0.75rem;
-    padding: 0.25rem 0.5rem;
-    border-radius: 0;
-    font-weight: 700;
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    flex-shrink: 0;
 }
 
 .name-badge.available {
-    background: var(--color-success);
-    color: white;
+    background: rgba(74, 222, 128, 0.1);
+    color: #4ade80;
+    border-color: rgba(74, 222, 128, 0.3);
 }
 
 .name-badge.used {
-    background: var(--color-secondary);
-    color: white;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--color-text-muted);
+    border-color: rgba(255, 255, 255, 0.1);
 }
 
 /* ===== List Actions ===== */
 .name-actions {
     display: flex;
     gap: var(--spacing-xs);
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
 }
 
 .btn-edit,
@@ -836,16 +840,15 @@ body {
 .btn-delete,
 .btn-toggle-status {
     font-family: 'Inter', sans-serif;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 500;
-    padding: var(--spacing-xs) var(--spacing-sm);
+    padding: 6px 10px;
     border: none;
     border-radius: var(--radius-sm);
     cursor: pointer;
     transition: all var(--transition-fast);
     white-space: nowrap;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: normal;
 }
 
 .btn-edit {
