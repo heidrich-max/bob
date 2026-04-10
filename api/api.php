@@ -238,6 +238,12 @@ try {
             }
             break;
 
+        // ===== Alle Namen löschen (Datenbank leeren) =====
+        case 'deleteAll':
+            $db->exec("TRUNCATE TABLE names");
+            sendResponse(true, null, 'Die Datenbank wurde komplett geleert.');
+            break;
+
         default:
             sendError('Ungültige Action: ' . $action, 400);
     }
