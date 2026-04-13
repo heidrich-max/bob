@@ -161,9 +161,21 @@ async function parseCSV(content) {
     // Split by newlines and filter out empty lines
     const lines = content.split(/\r?\n/).filter(line => line.trim() !== '');
 
-    // Extract names (assuming one name per line, taking first column if comma-separated)
+    if (lines.length === 0) {
+        alert('Die Datei scheint leer zu sein.');
+        return;
+    }
+
+    // Auto-detect delimiter (count occurrences of comma vs semicolon in the first line)
+    const firstLine = lines[0];
+    const commaCount = (firstLine.match(/,/g) || []).length;
+    const semicolonCount = (firstLine.match(/;/g) || []).length;
+    const delimiter = semicolonCount > commaCount ? ';' : ',';
+
+    // Extract names (taking first column)
     const names = lines.map(line => {
-        const parts = line.split(',');
+        // Simple CSV split (not handling quoted values with delimiters, but enough for simple lists)
+        const parts = line.split(delimiter);
         return parts[0].trim();
     }).filter(name => name !== '');
 
